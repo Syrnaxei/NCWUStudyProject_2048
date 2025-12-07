@@ -4,16 +4,17 @@ import java.util.Random;
 
 public class BoardControl {
     private int[][] board;
+    private int score = 0;
     Random random = new Random();
 
-    //创建棋盘方法
+    //===================================  创建棋盘 方法  ===================================
     public void CreateBoard() {
         board = new int[GameConfig.BOARD_SIZE][GameConfig.BOARD_SIZE];
         AddNumber();
         AddNumber();
     }
 
-    //添加数字方法
+    //===================================  添加数字 方法  ===================================
     public void AddNumber() {
         int row,col;
         //random到的坐标如果没数字（0）结束循环
@@ -31,7 +32,7 @@ public class BoardControl {
 
     //20251204测试函数
     public void testfunc() {
-        System.out.println("\n======2048  Game======");
+        System.out.println("\n======2048  Game======     分数：" + score);
         for (int i = 0; i < GameConfig.BOARD_SIZE; i++) {
             System.out.print("|");
             for (int j = 0; j < GameConfig.BOARD_SIZE; j++) {
@@ -43,7 +44,16 @@ public class BoardControl {
         System.out.println("======================");
     }
 
-    //判断游戏结束方法
+    //====================================  计分 方法  ====================================
+    public int getScore(){
+        return score;
+    }
+
+    public void setScore(int score){
+        this.score += score;
+    }
+
+    //===================================  游戏结束 方法  ===================================
     public boolean isGameOver() {
         //检查棋盘上是否有空位
         for(int i = 0; i < GameConfig.BOARD_SIZE; i++){
@@ -71,6 +81,8 @@ public class BoardControl {
         }
         return true;
     }
+
+    //===================================  棋盘调用 方法  ===================================
     public int[][] getBoard() {
         return board;
     }

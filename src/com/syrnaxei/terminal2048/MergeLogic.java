@@ -76,6 +76,7 @@ public class MergeLogic {
             }
             if(i - 1 >= 0 && tempNum == compactedRow[i - 1]){
                 newRow[index] = tempNum * 2;
+                board.setScore(tempNum * 2);
                 index--;
                 i -= 2;
             }else{
@@ -101,6 +102,7 @@ public class MergeLogic {
             }
             if(i + 1 < GameConfig.BOARD_SIZE && tempNum == compactedRow[i + 1]){
                 newRow[index] = tempNum * 2;
+                board.setScore(tempNum * 2);
                 index++;
                 i += 2;
             }else{
@@ -125,6 +127,7 @@ public class MergeLogic {
             }
             if (i - 1 >= 0 &&  tempNum == compactedCol[i - 1]) {
                 newCol[index] = tempNum * 2;
+                board.setScore(tempNum * 2);
                 index--;
                 i -= 2;
             } else {
@@ -149,6 +152,7 @@ public class MergeLogic {
             }
             if (i + 1 < GameConfig.BOARD_SIZE &&  tempNum == compactedCol[i + 1]) {
                 newCol[index] = tempNum * 2;
+                board.setScore(tempNum * 2);
                 index++;
                 i += 2;
             } else {

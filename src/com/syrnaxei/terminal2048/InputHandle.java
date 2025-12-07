@@ -12,7 +12,6 @@ public class InputHandle {
     }
 
     public void handle() {
-        //while(true){
             String input = scanner.next().toLowerCase(); //全部转化为小写
             switch(input){
                 case GameConfig.RIGHT:
@@ -32,8 +31,6 @@ public class InputHandle {
                     return;
                 default :
                     System.out.println("重新输入");
-                    return;
             }
-        //}
     }
 }
