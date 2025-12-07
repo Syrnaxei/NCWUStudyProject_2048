@@ -30,9 +30,13 @@ public class BoardControl {
         }
     }
 
-    //20251204测试函数
-    public void testfunc() {
-        System.out.println("\n======2048  Game======     分数：" + score);
+    //====================================  打印 方法  ====================================
+    public void printfBoard() {
+        if(GameConfig.isTestMode) {
+            System.out.println("\n===== TEST  MODE =====       分数：" + score);
+        }else{
+            System.out.println("\n===== 2048  Game =====       分数：" + score);
+        }
         for (int i = 0; i < GameConfig.BOARD_SIZE; i++) {
             System.out.print("|");
             for (int j = 0; j < GameConfig.BOARD_SIZE; j++) {

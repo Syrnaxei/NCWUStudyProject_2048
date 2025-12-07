@@ -244,7 +244,7 @@ public class MergeLogic {
         board.setBoard(data);
     }
 
-    public void mergeRighttest() {
+    public void testMergeRight() {
         int[][] data = board.getBoard();
         System.out.println("\n=== 执行向右合并 ===");
         for (int row = 0; row < GameConfig.BOARD_SIZE; row++) {
@@ -263,7 +263,7 @@ public class MergeLogic {
         System.out.println("=== 向右合并结束 ===");
     }
 
-    public void mergeLefttest() {
+    public void testMergeLeft() {
         int[][] data = board.getBoard();
         System.out.println("\n=== 执行向左合并 ===");
         for (int row = 0; row < GameConfig.BOARD_SIZE; row++) {
@@ -282,7 +282,7 @@ public class MergeLogic {
         System.out.println("=== 向左合并结束 ===");
     }
 
-    public void mergeDowntest() {
+    public void testMergeDown() {
         int[][] data = board.getBoard();
         System.out.println("\n=== 执行向下合并 ===");
         for (int col = 0; col < GameConfig.BOARD_SIZE; col++) {
@@ -301,7 +301,7 @@ public class MergeLogic {
         System.out.println("=== 向下合并结束 ===");
     }
 
-    public void mergeUptest() {
+    public void testMergeUp() {
         int[][] data = board.getBoard();
         System.out.println("\n=== 执行向上合并 ===");
         for (int col = 0; col < GameConfig.BOARD_SIZE; col++) {

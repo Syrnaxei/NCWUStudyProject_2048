@@ -4,16 +4,37 @@ import java.util.Scanner;
 
 public class InputHandle {
     private Scanner scanner;
-    private  MergeLogic mergeLogic;
+    private MergeLogic mergeLogic;
 
-    public InputHandle(MergeLogic mergeLogic){
+    public InputHandle(MergeLogic mergeLogic) {
         this.scanner = new Scanner(System.in); //scanner的this 好像加不加都行，这里加上好看
         this.mergeLogic = mergeLogic;
     }
 
     public void handle() {
-            String input = scanner.next().toLowerCase(); //全部转化为小写
-            switch(input){
+        String input = scanner.next().toLowerCase(); //全部转化为小写
+        if (GameConfig.isTestMode) {
+            switch (input) {
+                case GameConfig.RIGHT:
+                    mergeLogic.testMergeRight();
+                    return;
+                case GameConfig.LEFT:
+                    mergeLogic.testMergeLeft();
+                    return;
+                case GameConfig.UP:
+                    mergeLogic.testMergeUp();
+                    return;
+                case GameConfig.DOWN:
+                    mergeLogic.testMergeDown();
+                    return;
+                case "fill":
+                        mergeLogic.testfill();
+                        return;
+                default:
+                    System.out.println("重新输入");
+            }
+        } else {
+            switch (input) {
                 case GameConfig.RIGHT:
                     mergeLogic.mergeRight();
                     return;
@@ -26,11 +47,9 @@ public class InputHandle {
                 case GameConfig.DOWN:
                     mergeLogic.mergeDown();
                     return;
-                case "test" :
-                    mergeLogic.testfill();
-                    return;
-                default :
+                default:
                     System.out.println("重新输入");
             }
+        }
     }
 }
