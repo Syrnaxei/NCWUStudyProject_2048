@@ -3,8 +3,8 @@ package com.syrnaxei.terminal2048;
 import java.util.Scanner;
 
 public class InputHandle {
-    private Scanner scanner;
-    private MergeLogic mergeLogic;
+    private final Scanner scanner;
+    private final MergeLogic mergeLogic;
 
     public InputHandle(MergeLogic mergeLogic) {
         this.scanner = new Scanner(System.in); //scanner的this 好像加不加都行，这里加上好看

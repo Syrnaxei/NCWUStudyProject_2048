@@ -8,15 +8,18 @@ public class BoardControl {
     Random random = new Random();
 
     //===================================  创建棋盘 方法  ===================================
-    public void CreateBoard() {
+    public void createBoard() {
         board = new int[GameConfig.BOARD_SIZE][GameConfig.BOARD_SIZE];
-        AddNumber();
-        AddNumber();
+        addNumber();
+        addNumber();
     }
 
     //===================================  添加数字 方法  ===================================
-    public void AddNumber() {
+    public void addNumber() {
         int row,col;
+        if(!hasEmptyLocation()){
+            return;
+        }
         //random到的坐标如果没数字（0）结束循环
         do{
             row = random.nextInt(GameConfig.BOARD_SIZE);
@@ -28,6 +31,17 @@ public class BoardControl {
         }else{
             board[row][col] = 4;
         }
+    }
+
+    public boolean hasEmptyLocation() {
+        for(int[] row : board){
+            for(int num : row){
+                if(num == 0){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     //====================================  打印 方法  ====================================
