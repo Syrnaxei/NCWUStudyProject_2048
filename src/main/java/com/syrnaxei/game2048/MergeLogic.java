@@ -1,4 +1,4 @@
-package com.syrnaxei.terminal2048;
+package com.syrnaxei.game2048;
 
 import java.util.Arrays;
 
