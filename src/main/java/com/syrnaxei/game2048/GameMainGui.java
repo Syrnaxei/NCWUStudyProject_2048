@@ -1,5 +1,7 @@
 package com.syrnaxei.game2048;
 
+import com.syrnaxei.gui.GameGUI;
+
 import javax.swing.*;
 
 public class GameMainGui {

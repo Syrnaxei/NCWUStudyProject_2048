@@ -1,9 +1,12 @@
-package com.syrnaxei.game2048;
+package com.syrnaxei.gui;
+
+import com.syrnaxei.game2048.BoardControl;
+import com.syrnaxei.game2048.GameConfig;
+import com.syrnaxei.game2048.MergeLogic;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.net.URI;
 import java.util.Objects;
 
 public class GameGUI extends JFrame {
@@ -14,9 +17,7 @@ public class GameGUI extends JFrame {
 
     ImageIcon gameIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/icon/game_icon.png")));
     ImageIcon infoIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/icon/info_icon.png")));
-    ImageIcon ncwuLogo = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/2048/logo_ncwu.png")));
-    Image githubLogo = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/2048/github-mark.png"))).getImage().getScaledInstance(65,65,Image.SCALE_SMOOTH);
-    Image ncwuEmblem = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/2048/ncwu_emblem.png"))).getImage().getScaledInstance(65,65,Image.SCALE_SMOOTH);
+
 
     public GameGUI(BoardControl boardControl, MergeLogic mergeLogic) {
         this.boardControl = boardControl;
@@ -25,18 +26,18 @@ public class GameGUI extends JFrame {
         setupKeyListener();
         refreshBoard(); // 显示初始方块
     }
-    
+
     private void initializeUI() {
         setTitle("NCWUStudyProgram2048");
         setIconImage(gameIcon.getImage());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        
+
         // 创建主面板
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        
+
         // 创建顶部面板（分数）
         JPanel topPanel = new JPanel(new BorderLayout());
 
@@ -54,16 +55,16 @@ public class GameGUI extends JFrame {
 
         //add topPanel to mainPanel
         mainPanel.add(topPanel, BorderLayout.NORTH);
-        
+
         // 创建游戏网格面板
         JPanel gridPanel = new JPanel(new GridLayout(GameConfig.BOARD_SIZE, GameConfig.BOARD_SIZE, 5, 5));
         gridPanel.setBackground(new Color(150, 170, 185)); //背景颜色
         gridPanel.setPreferredSize(new Dimension(400, 400));
         gridPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        
+
         // 初始化方块面板数组
         tilePanels = new TilePanel[GameConfig.BOARD_SIZE][GameConfig.BOARD_SIZE];
-        
+
         // 创建每个方格
         for (int i = 0; i < GameConfig.BOARD_SIZE; i++) {
             for (int j = 0; j < GameConfig.BOARD_SIZE; j++) {
@@ -71,115 +72,26 @@ public class GameGUI extends JFrame {
                 gridPanel.add(tilePanels[i][j]);
             }
         }
-        
+
         mainPanel.add(gridPanel, BorderLayout.CENTER);
-        
+
         // 创建底部面板（说明）
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JLabel instructionLabel = new JLabel("Use WASD or Arrow Keys to move tiles");
         instructionLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         bottomPanel.add(instructionLabel);
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
-        
+
         add(mainPanel);
         pack();
         setLocationRelativeTo(null);
     }
 
-    //infoButton achievement Part
+    //infoButton 点击后打开 InfoGUI
     private JButton createInfoButton() {
         JButton infoButton = new JButton("i");
-
-        infoButton.addActionListener(_ -> showInfoWindow());
+        infoButton.addActionListener(_ -> new InfoGUI(this, infoIcon)); // 调用 InfoGUI
         return infoButton;
-    }
-
-    private void showInfoWindow() {
-        JFrame infoFrame = new JFrame("About this program");
-
-        infoFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        infoFrame.setIconImage(infoIcon.getImage());
-        infoFrame.setSize(new Dimension(500,600));
-        infoFrame.setResizable(false);
-        infoFrame.setLocationRelativeTo(this);
-        infoFrame.setLayout(new BorderLayout());
-
-        //=====  top area of the info window  =====
-        JPanel ncwuPicPanel = new JPanel(new BorderLayout());
-        ncwuPicPanel.setBackground(new Color(100,160,205));
-        ncwuPicPanel.setPreferredSize(new Dimension(500,100)); //the high of top-part
-        //Ncwu picture part
-        JLabel ncwuPicLabel = new JLabel();
-        ncwuPicLabel.setIcon(ncwuLogo);
-
-        ncwuPicPanel.add(ncwuPicLabel,BorderLayout.CENTER);
-        infoFrame.add(ncwuPicPanel,BorderLayout.NORTH);
-
-        //=====  mid-area of the info window  =====
-        JPanel textPanel = new JPanel(new BorderLayout());
-        textPanel.setPreferredSize(new Dimension(500,400)); //the high of mid-part
-
-        //text Part
-        JTextArea textArea = new JTextArea("\n    This is a Java learning program, designed to help  me complete my final Java assignment " +
-                "by  implementing the classic 2048 game with a GUI.\n\n" +
-                " Special thanks to Liew for his GUI assistance\n\n" +
-                "                        Developed by NCWU java study team\n" +
-                "                                 2025.12.13 22:34 program done\n");
-        textArea.setFont(new Font("Arial", Font.PLAIN, 20));
-        textArea.setLineWrap(true); //自动换行
-        textArea.setWrapStyleWord(true); //单词边界换行
-        textArea.setEditable(false);
-        textArea.setBackground(new Color(180, 200, 215));
-
-        textPanel.add(textArea,BorderLayout.CENTER);
-        infoFrame.add(textPanel,BorderLayout.CENTER);
-
-        //===== end area of the info window  =====
-        JPanel linkPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,60,20));
-        linkPanel.setBackground(new Color(100,160,205));
-        linkPanel.setPreferredSize(new Dimension(500,100));
-
-        JLabel link1 = createLinkLabel(githubLogo,"https://github.com/Syrnaxei/NCWUStudyProject_2048");
-        JLabel link2 = createLinkLabel(ncwuEmblem,"https://www.ncwu.edu.cn/");
-
-        linkPanel.add(link1);
-        linkPanel.add(link2);
-
-        infoFrame.add(linkPanel,BorderLayout.SOUTH);
-
-
-        //wtf!!  lost target!!!!!!!!!!!
-        infoFrame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                // 主窗口重新请求焦点
-                GameGUI.this.requestFocusInWindow();
-                // 确保主窗口可聚焦
-                GameGUI.this.setFocusable(true);
-                GameGUI.this.toFront(); // 主窗口置顶
-            }
-        });
-
-        infoFrame.setVisible(true);
-    }
-
-    private JLabel createLinkLabel(Image image,String url) {
-        JLabel label = new JLabel();
-
-        label.setIcon(new ImageIcon(image));
-        label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        label.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                try {
-                    Desktop.getDesktop().browse(new URI(url));
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(GameGUI.this, "Failed to open link: " + ex.getMessage());
-                }
-            }
-        });
-
-        return label;
     }
 
 
@@ -189,7 +101,7 @@ public class GameGUI extends JFrame {
             public void keyPressed(KeyEvent e) {
                 boolean moved = false;
                 int[][] boardBefore = copyBoard(boardControl.getBoard());
-                
+
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_W:
                     case KeyEvent.VK_UP:
@@ -212,7 +124,7 @@ public class GameGUI extends JFrame {
                         moved = !boardsEqual(boardBefore, boardControl.getBoard());
                         break;
                 }
-                
+
                 if (moved) {
                     boardControl.addNumber();
                     refreshBoard();
@@ -223,7 +135,7 @@ public class GameGUI extends JFrame {
         setFocusable(true);
         requestFocusInWindow();
     }
-    
+
     // 复制棋盘用于比较
     private int[][] copyBoard(int[][] board) {
         int[][] copy = new int[board.length][board[0].length];
@@ -232,7 +144,7 @@ public class GameGUI extends JFrame {
         }
         return copy;
     }
-    
+
     // 比较两个棋盘是否相同
     private boolean boardsEqual(int[][] a, int[][] b) {
         for (int i = 0; i < a.length; i++) {
@@ -244,15 +156,15 @@ public class GameGUI extends JFrame {
         }
         return true;
     }
-    
+
     public void refreshBoard() {
         int[][] board = boardControl.getBoard();
         int score = boardControl.getScore();
-        
+
         // 更新分数显示
         SwingUtilities.invokeLater(() -> {
             scoreLabel.setText("Score: " + score);
-            
+
             // 更新方格显示
             for (int i = 0; i < GameConfig.BOARD_SIZE; i++) {
                 for (int j = 0; j < GameConfig.BOARD_SIZE; j++) {
@@ -261,7 +173,7 @@ public class GameGUI extends JFrame {
             }
         });
     }
-    
+
     private void checkGameOver() {
         if (boardControl.isGameOver()) {
             SwingUtilities.invokeLater(() -> {
@@ -269,27 +181,27 @@ public class GameGUI extends JFrame {
             });
         }
     }
-    
+
     // 自定义方块面板类
     private static class TilePanel extends JPanel {
         private JLabel valueLabel;
-        
+
         public TilePanel() {
             initializeTile();
         }
-        
+
         private void initializeTile() {
             setPreferredSize(new Dimension(90, 90));
             setBackground(new Color(180, 200, 215)); // 空方块背景色
             setLayout(new BorderLayout());
-            
+
             valueLabel = new JLabel("", SwingConstants.CENTER);
             valueLabel.setFont(new Font("Arial", Font.BOLD, 24));
             add(valueLabel, BorderLayout.CENTER);
-            
+
             setBorder(BorderFactory.createRaisedBevelBorder());
         }
-        
+
         public void setValue(int value) {
             if (value == 0) {
                 valueLabel.setText("");
