@@ -85,7 +85,7 @@ public class GameGUI extends JFrame {
 
         // 创建底部面板（说明）
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel instructionLabel = new JLabel("Use WASD or Arrow Keys to move tiles");
+        JLabel instructionLabel = new JLabel("Use WASD or Arrow Keys to move tiles , press R to reset the board");
         instructionLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         bottomPanel.add(instructionLabel);
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
@@ -141,6 +141,10 @@ public class GameGUI extends JFrame {
                     case KeyEvent.VK_RIGHT:
                         mergeLogic.mergeRight();
                         moved = !boardsEqual(boardBefore, board.getBoard());
+                        break;
+                    case KeyEvent.VK_R:
+                        board.resetBoard();
+                        refreshBoard();
                         break;
                 }
 
