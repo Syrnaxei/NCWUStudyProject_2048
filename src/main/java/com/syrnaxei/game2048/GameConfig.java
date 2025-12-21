@@ -4,24 +4,26 @@ import java.io.*;
 import java.util.Properties;
 
 public class GameConfig {
-    //==================================== 固定方向键（不再可配置）====================================
+    //====================================  固定方向键  ====================================
     public static final String UP = "w";
     public static final String DOWN = "s";
     public static final String LEFT = "a";
     public static final String RIGHT = "d";
 
-    //==================================== 可配置项 ====================================
+    //====================================  静态 常量  ====================================
     public static int BOARD_SIZE = 4;
     public static int S_FOUR_P = 10;
     public static boolean isTestMode = false;
+    public static int windowWidth = 400;
+    public static int windowHeight = 400;
 
-    //==================================== 最高分（自动保存）====================================
+    //=====================================  最高分  =====================================
     public static int bestScore = 0;
 
     private static final String CONFIG_FILE = "config.properties";   // 仅用于 BOARD_SIZE / S_FOUR_P / isTestMode
     private static final String SCORE_FILE = "score.properties";     // 仅用于 bestScore
 
-    //==================================== 加载配置 ====================================
+    //====================================  加载 配置  ====================================
     public static void loadConfig() {
         // 1. 加载 config.properties（仅读取非方向键配置）
         Properties configProps = new Properties();
@@ -40,7 +42,6 @@ public class GameConfig {
                 BOARD_SIZE = getIntProperty(configProps, "BOARD_SIZE", 4);
                 S_FOUR_P = getIntProperty(configProps, "S_FOUR_P", 10);
                 isTestMode = getBooleanProperty(configProps, "isTestMode", false);
-                // 注意：UP/DOWN/LEFT/RIGHT 不再从配置读取
             } catch (IOException e) {
                 System.err.println("加载 config.properties 失败: " + e.getMessage());
             } finally {
@@ -51,6 +52,8 @@ public class GameConfig {
         } else {
             System.out.println("未找到 config.properties，使用默认游戏设置");
         }
+
+        //checkWindowSize();
 
         // 2. 加载 score.properties（最高分）
         File scoreFile = new File(SCORE_FILE);
@@ -67,7 +70,7 @@ public class GameConfig {
         }
     }
 
-    //==================================== 保存最高分 ====================================
+    //====================================  保存最高分  ====================================
     public static void saveBestScore() {
         Properties props = new Properties();
         File scoreFile = new File(SCORE_FILE);
@@ -90,7 +93,7 @@ public class GameConfig {
         }
     }
 
-    //==================================== 辅助方法 ====================================
+    //====================================  辅助 方法  ====================================
     private static int getIntProperty(Properties props, String key, int defaultValue) {
         String val = props.getProperty(key);
         if (val == null || val.trim().isEmpty()) return defaultValue;

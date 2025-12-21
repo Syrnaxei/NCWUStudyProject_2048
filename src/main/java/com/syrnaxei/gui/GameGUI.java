@@ -42,8 +42,8 @@ public class GameGUI extends JFrame {
         JPanel topPanel = new JPanel(new BorderLayout());
 
         //分数标签
-        scoreLabel = new JLabel("Score: 0");
-        scoreLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        scoreLabel = new JLabel();
+        scoreLabel.setFont(new Font("微软雅黑", Font.BOLD, 20));
         topPanel.add(scoreLabel,BorderLayout.WEST);
 
         //info Button
@@ -61,7 +61,7 @@ public class GameGUI extends JFrame {
         // 创建游戏网格面板
         JPanel gridPanel = new JPanel(new GridLayout(GameConfig.BOARD_SIZE, GameConfig.BOARD_SIZE, 5, 5));
         gridPanel.setBackground(new Color(150, 170, 185)); //背景颜色
-        gridPanel.setPreferredSize(new Dimension(400, 400));
+        gridPanel.setPreferredSize(new Dimension(GameConfig.windowWidth, GameConfig.windowHeight));
         gridPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // 初始化方块面板数组
@@ -92,6 +92,7 @@ public class GameGUI extends JFrame {
     //infoButton create fuc
     private JButton createInfoButton() {
         JButton infoButton = new JButton("i");
+        styleFlatButton(infoButton);
         infoButton.addActionListener(_ -> new InfoGUI(this, infoIcon)); // 调用 InfoGUI
         return infoButton;
     }
@@ -99,12 +100,23 @@ public class GameGUI extends JFrame {
     //refreshButton creat fuc
     private JButton createRefreshButton() {
         JButton refreshBotton = new JButton("R");
+        styleFlatButton(refreshBotton);
         refreshBotton.addActionListener(_ ->{
             board.resetBoard();
             refreshBoard();
             this.requestFocusInWindow();
         });
         return refreshBotton;
+    }
+
+    private void styleFlatButton(JButton button) {
+        button.setFont(new Font("Arial", Font.BOLD, 14));
+        button.setBackground(new Color(100, 160, 205)); // 使用与棋盘一致的蓝色系
+        button.setForeground(Color.WHITE);
+        button.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        button.setFocusPainted(false);
+        button.setContentAreaFilled(true);
+        button.setOpaque(true);
     }
 
 
@@ -185,7 +197,7 @@ public class GameGUI extends JFrame {
 
         // 更新分数显示
         SwingUtilities.invokeLater(() -> {
-            scoreLabel.setText("Score: " + score);
+            scoreLabel.setText("分数: " + score);
 
             // 更新方格显示
             for (int i = 0; i < GameConfig.BOARD_SIZE; i++) {
@@ -239,7 +251,7 @@ public class GameGUI extends JFrame {
             valueLabel.setFont(new Font("Arial", Font.BOLD, 24));
             add(valueLabel, BorderLayout.CENTER);
 
-            setBorder(BorderFactory.createRaisedBevelBorder());
+            setBorder(BorderFactory.createLineBorder(new Color(150, 170, 185), 2));
         }
 
         public void setValue(int value) {
