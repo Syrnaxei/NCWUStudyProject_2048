@@ -43,7 +43,7 @@ public class GameGUI extends JFrame {
 
         //分数标签
         scoreLabel = new JLabel();
-        scoreLabel.setFont(new Font("微软雅黑", Font.BOLD, 20));
+        scoreLabel.setFont(new Font("微软雅黑", Font.BOLD, 18));
         topPanel.add(scoreLabel,BorderLayout.WEST);
 
         //info Button
@@ -113,10 +113,11 @@ public class GameGUI extends JFrame {
         button.setFont(new Font("Arial", Font.BOLD, 14));
         button.setBackground(new Color(100, 160, 205)); // 使用与棋盘一致的蓝色系
         button.setForeground(Color.WHITE);
-        button.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        button.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // 设置相等的边距
         button.setFocusPainted(false);
         button.setContentAreaFilled(true);
         button.setOpaque(true);
+        button.setPreferredSize(new Dimension(30, 30)); // 设置按钮为正方形
     }
 
 
