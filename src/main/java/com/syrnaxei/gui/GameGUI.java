@@ -82,8 +82,9 @@ public class GameGUI extends JFrame {
 
         // 创建底部面板
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel instructionLabel = new JLabel("Use WASD or Arrow Keys to move tiles,Press R to reset the board.");
-        instructionLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        JLabel instructionLabel = new JLabel("使用 WASD 或 方向键 移动方块，按 R 键重置棋盘。");
+        instructionLabel.setForeground(new Color(80,80,80));
+        instructionLabel.setFont(new Font("微软雅黑", Font.BOLD, 14));
         bottomPanel.add(instructionLabel);
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
@@ -132,7 +133,7 @@ public class GameGUI extends JFrame {
 
     private void styleFlatButton(JButton button) {
         button.setFont(new Font("Arial", Font.BOLD, 14));
-        button.setBackground(new Color(100, 160, 205)); // 使用与棋盘一致的蓝色系
+        button.setBackground(new Color(100, 160, 205));
         button.setForeground(Color.WHITE);
         button.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // 设置相等的边距
         button.setFocusPainted(false);
@@ -145,7 +146,7 @@ public class GameGUI extends JFrame {
         button.setLayout(new FlowLayout(FlowLayout.LEFT));
         button.setHorizontalAlignment(SwingConstants.LEFT);
         button.setFont(new Font("微软雅黑", Font.BOLD, 14));
-        button.setBackground(new Color(100, 160, 205)); // 使用与棋盘一致的蓝色系
+        button.setBackground(new Color(100, 160, 205));
         button.setForeground(Color.WHITE);
         button.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // 设置相等的边距
         button.setFocusPainted(false);
@@ -247,7 +248,7 @@ public class GameGUI extends JFrame {
     private void checkGameOver() {
         if (board.isGameWin()) {
             SwingUtilities.invokeLater(() -> {
-                JOptionPane.showMessageDialog(this, "Win! Final Score: " + board.getScore() + "\nHistory Best Score : " + GameConfig.bestScore);
+                JOptionPane.showMessageDialog(this, "胜利！最终得分: " + board.getScore() + "\n历史最高分: " + GameConfig.bestScore);
                 if(GameConfig.bestScore < board.getScore()){
                     GameConfig.bestScore = board.getScore();
                     GameConfig.saveBestScore();
@@ -259,7 +260,7 @@ public class GameGUI extends JFrame {
         }
         if (board.isGameOver()) {
             SwingUtilities.invokeLater(() -> {
-                JOptionPane.showMessageDialog(this, "Game Over! Final Score: " + board.getScore() + "\nHistory Best Score : " + GameConfig.bestScore);
+                JOptionPane.showMessageDialog(this, "游戏结束！最终得分: " + board.getScore() + "\n历史最高分:  " + GameConfig.bestScore);
                 if(GameConfig.bestScore < board.getScore()){
                     GameConfig.bestScore = board.getScore();
                     GameConfig.saveBestScore();
